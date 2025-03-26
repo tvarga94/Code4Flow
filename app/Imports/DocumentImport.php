@@ -23,8 +23,14 @@ class DocumentImport implements ToCollection
             $data = [];
 
             foreach ($headers as $i => $header) {
-                $value = json_decode($row[$i]);
-                $data[$header] = json_last_error() === JSON_ERROR_NONE ? $value : $row[$i];
+                $cell = $row[$i];
+
+                if (is_string($cell) && (str_starts_with(trim($cell), '{') || str_starts_with(trim($cell), '['))) {
+                    $value = json_decode($cell);
+                    $data[$header] = json_last_error() === JSON_ERROR_NONE ? $value : $cell;
+                } else {
+                    $data[$header] = $cell;
+                }
             }
 
             $documents[] = Document::fromArray($data);

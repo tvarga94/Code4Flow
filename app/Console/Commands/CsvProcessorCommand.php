@@ -60,7 +60,7 @@ class CsvProcessorCommand extends Command
             echo str_pad($doc->id, 20);
             echo str_pad($doc->documentType, 20);
             echo str_pad($doc->partner->name ?? 'N/A', 20);
-            echo str_pad((int) $doc->total(), 20);
+            echo str_pad(number_format($doc->total(), 0, '', ''), 20);
             echo PHP_EOL;
         }
     }
