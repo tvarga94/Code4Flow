@@ -12,6 +12,6 @@ class PartnerIdFilter implements DocumentFilterInterface
 
     public function apply(Document $document): bool
     {
-        return $document->partner->id == $this->partnerId;
+        return isset($document->partner->id) && $document->partner->id == $this->partnerId;
     }
 }
